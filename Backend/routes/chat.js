@@ -26,7 +26,7 @@ router.get("/thread",async(req,res)=>{
     }
 });
 
-//get 1 specific threadd by its id
+//get 1 specific thread by its id
 router.get("/thread/:threadId",async(req,res)=>{
     const {threadId} =req.params;
     try{
