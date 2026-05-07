@@ -71,23 +71,16 @@ cd prompt-verse
 
 5. Run the project locally.
 
-```
-
 ## 🔍 Future Improvements
 
-* Chat history support
-* Voice input integration
-* Dark/Light mode toggle
-* Multiple AI model support
-* Enhanced UI animations
-
+- Chat history support
+- Voice input integration
+- Dark/Light mode toggle
+- Multiple AI model support
+- Enhanced UI animations
 
 ## 🤝 Contributing
+
 Contributions, issues, and feature requests are welcome.
 
-
-
-## 👩‍💻 Author
-
-Developed by Banshita Rout
-```
+### Development under process
