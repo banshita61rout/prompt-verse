@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+/* dark is the default, light overrides these when data-theme="light" is set on <html> */
+:root,
+[data-theme="dark"]{
+  --bg-deep: #171410;
+  --bg-sidebar: #1c1812;
+  --surface: #262019;
+  --surface-hover: #33291d80;
+  --border: #3a2f22;
+  --text-primary: #f2ece1;
+  --text-muted: #a89a86;
+  --accent-primary: #f5b400;
+  --accent-secondary: #e0542c;
+  --accent-gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  --danger: #ff6b5e;
+  --radius-md: 10px;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  /* clipped-corner shape used everywhere for the angular look */
+  --cut: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+[data-theme="light"]{
+  --bg-deep: #faf6ee;
+  --bg-sidebar: #f2e9d8;
+  --surface: #ffffff;
+  --surface-hover: #f0e6d2;
+  --border: #e3d5b8;
+  --text-primary: #2b2416;
+  --text-muted: #7a6f5c;
+  --accent-primary: #d99400;
+  --accent-secondary: #c8461f;
+  --danger: #d9432f;
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+button{
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+textarea, input{
+  font-family: inherit;
+}
+
+::-webkit-scrollbar{
+  width: 8px;
+}
+::-webkit-scrollbar-thumb{
+  background: var(--border);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-track{
+  background: transparent;
+}

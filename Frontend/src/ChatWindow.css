@@ -1,0 +1,134 @@
+.chat-window{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-width: 0;
+}
+
+.chat-header{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.menu-btn{
+  display: none;
+  color: var(--text-muted);
+}
+
+.chat-header-title{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.model-badge{
+  margin-left: auto;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  clip-path: var(--cut);
+  padding: 4px 10px;
+}
+
+.input-area{
+  padding: 10px 20px 18px 20px;
+}
+
+.input-pill{
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  clip-path: var(--cut);
+  padding: 10px 10px 10px 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input-pill:focus-within{
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px #f5b40022;
+}
+
+.input-pill textarea{
+  flex: 1;
+  resize: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 14.5px;
+  line-height: 1.5;
+  max-height: 160px;
+}
+
+.input-pill textarea::placeholder{
+  color: var(--text-muted);
+}
+
+.mic-btn{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.mic-btn:hover{
+  color: var(--accent-primary);
+}
+
+.mic-btn.listening{
+  color: var(--accent-secondary);
+  animation: pulse 1s ease infinite;
+}
+
+@keyframes pulse{
+  0%, 100%{ opacity: 1; }
+  50%{ opacity: 0.5; }
+}
+
+.send-btn{
+  width: 32px;
+  height: 32px;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  background: var(--accent-gradient);
+  color: var(--bg-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: opacity 0.15s ease;
+}
+
+.send-btn.stop{
+  background: var(--surface);
+  border: 1px solid var(--accent-secondary);
+  color: var(--accent-secondary);
+}
+
+.send-btn:disabled{
+  opacity: 0.35;
+  cursor: default;
+}
+
+.input-hint{
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+@media (max-width: 768px){
+  .menu-btn{
+    display: block;
+  }
+}

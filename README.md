@@ -1,86 +1,55 @@
-<div align="center">
+# Prompt Verse
 
-# ✨ Prompt Verse ✨
+An AI chat app built with React (Vite), Express, MongoDB, and Groq (free tier, no card required).
 
-[![OpenAI](https://img.shields.io/badge/OpenAI-API-success?style=for-the-badge&logo=openai)](https://platform.openai.com/)
-[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?style=for-the-badge&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![HTML5](https://img.shields.io/badge/HTML5-Markup-orange?style=for-the-badge&logo=html5)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![CSS3](https://img.shields.io/badge/CSS3-Styling-blue?style=for-the-badge&logo=css3)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+## Project structure
 
-### 🚀 AI-Powered Conversational Experience
-
-<p align="center">
-  <img src="https://img.shields.io/badge/React-Frontend-61DAFB?style=flat-square&logo=react" />
-  <img src="https://img.shields.io/badge/MongoDB-Database-47A248?style=flat-square&logo=mongodb" />
-  <img src="https://img.shields.io/badge/Express.js-Backend-000000?style=flat-square&logo=express" />
-  <img src="https://img.shields.io/badge/Node.js-Runtime-339933?style=flat-square&logo=node.js" />
-  <img src="https://img.shields.io/badge/OpenAI-API-412991?style=flat-square&logo=openai" />
-</p>
-
-</div>
-
-Prompt Verse is an AI-powered chatbot built using the OpenAI API, designed to deliver intelligent real-time conversations with a clean and interactive user experience.
-
-## 🚀 Features
-
-- AI-powered conversational interface
-- Real-time responses using OpenAI API
-- Clean and responsive UI
-- Interactive chat experience
-- Fast and user-friendly design
-
-## 🛠️ Tech Stack
-
-- HTML
-- CSS
-- JavaScript
-- OpenAI API
-
----
-
-## 📂 Project Structure
-
-```bash
+```
 prompt-verse/
-│── index.html
-│── style.css
-│── script.js
-│── assets/
-└── README.md
+├── backend/
+│   ├── models/Thread.js
+│   ├── routes/chat.js
+│   ├── utils/Groq.js
+│   ├── server.js
+│   └── .env.example
+└── frontend/
+    ├── src/
+    └── .env.example
 ```
 
----
-
-## ⚙️ Installation & Setup
-
-1. Clone the repository
+## Backend setup
 
 ```bash
-git clone https://github.com/banshita61rout/prompt-verse.git
+cd backend
+npm install
+cp .env.example .env
 ```
 
-2. Navigate to the project folder
+Fill in `.env`:
+- `MONGODB_URI` — get a free cluster at mongodb.com/atlas (free tier, no card needed)
+- `GROQ_API_KEY` — get a free key at console.groq.com/keys (no card needed)
 
 ```bash
-cd prompt-verse
+npm run dev
 ```
 
-3. Open the project in your preferred code editor.
+## Frontend setup
 
-4. Add your OpenAI API key in the required configuration file.
+```bash
+cd frontend
+npm install
+cp .env.example .env
+```
 
-5. Run the project locally.
+Set `VITE_API_URL` to your backend URL (`http://localhost:8080` for local dev).
 
-## 🔍 Future Improvements
+```bash
+npm run dev
+```
 
-- Chat history support
-- Voice input integration
-- Dark/Light mode toggle
-- Multiple AI model support
-- Enhanced UI animations
+## Deploying
 
-## 🤝 Contributing
+- **Backend**: Render or Railway free tier (Vercel/Netlify are built for frontends, not always-on Node servers with a persistent DB connection).
+- **Frontend**: Netlify or Vercel — set `VITE_API_URL` as an environment variable in the dashboard, pointing to your deployed backend URL.
 
-Contributions, issues, and feature requests are welcome.
-
-### Development under process
+Never commit `.env` — it's already in `.gitignore`.

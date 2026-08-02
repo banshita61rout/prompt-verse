@@ -1,0 +1,31 @@
+.toast{
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--accent-primary);
+  clip-path: var(--cut);
+  padding: 10px 18px;
+  font-size: 13.5px;
+  color: var(--text-primary);
+  box-shadow: 0 8px 24px #00000040;
+  animation: dropIn 0.3s ease;
+}
+
+.toast-mark{
+  width: 10px;
+  height: 10px;
+  background: var(--accent-gradient);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+@keyframes dropIn{
+  from{ opacity: 0; transform: translate(-50%, -12px); }
+  to{ opacity: 1; transform: translate(-50%, 0); }
+}
