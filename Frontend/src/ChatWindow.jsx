@@ -1,15 +1,23 @@
 import React, { useContext, useRef, useState } from "react";
 import "./ChatWindow.css";
 import Chat from "./Chat";
+import Toast from "./Toast";
 import { Mycontext } from "./Mycontext";
-import { Menu, ArrowUp, Square, Mic, MicOff } from "lucide-react";
+import { Menu, ArrowUp, Square, Mic, MicOff, Sparkles } from "lucide-react";
 
 // browser's built-in speech recognition, works free with no API
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
 
 function ChatWindow() {
-  const { prompt, setPrompt, sendMessage, stopGenerating, isLoading, setIsSidebarOpen } =
-    useContext(Mycontext);
+  const {
+    prompt,
+    setPrompt,
+    sendMessage,
+    stopGenerating,
+    isLoading,
+    setIsSidebarOpen,
+  } = useContext(Mycontext);
   const textareaRef = useRef(null);
   const recognitionRef = useRef(null);
   const [isListening, setIsListening] = useState(false);
@@ -70,9 +78,16 @@ function ChatWindow() {
         <button className="menu-btn" onClick={() => setIsSidebarOpen(true)}>
           <Menu size={20} />
         </button>
-        <span className="chat-header-title">Prompt Verse</span>
+        <div className="header-brand">
+          <span className="header-mark">
+            <Sparkles size={12} />
+          </span>
+          <span className="chat-header-title">Prompt Verse</span>
+        </div>
         <span className="model-badge">Llama 3.3 70B</span>
       </header>
+
+      <Toast message="Welcome to Prompt Verse! We're just one prompt away." />
 
       <Chat />
 
@@ -109,7 +124,10 @@ function ChatWindow() {
             </button>
           )}
         </div>
-        <p className="input-hint">Prompt Verse is an AI. Double-check anything important.</p>
+        <p className="input-hint">
+          Prompt Verse is an AI. Double-check anything important.
+        </p>
+        <p className="credit-line">Built by Banshita, powered by curiosity</p>
       </div>
     </section>
   );

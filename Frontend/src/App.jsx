@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import Sidebar from "./Sidebar";
 import ChatWindow from "./ChatWindow";
-import Toast from "./Toast";
 import { Mycontext } from "./Mycontext";
+import { useAuth } from "./AuthContext";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
@@ -13,42 +13,53 @@ function calculateStreak() {
   const saved = JSON.parse(localStorage.getItem("pv-streak") || "null");
 
   if (!saved) {
-    localStorage.setItem("pv-streak", JSON.stringify({ lastDate: today, count: 1 }));
+    localStorage.setItem(
+      "pv-streak",
+      JSON.stringify({ lastDate: today, count: 1 }),
+    );
     return 1;
   }
   if (saved.lastDate === today) return saved.count;
 
   const yesterday = new Date(Date.now() - 86400000).toDateString();
   const newCount = saved.lastDate === yesterday ? saved.count + 1 : 1;
-  localStorage.setItem("pv-streak", JSON.stringify({ lastDate: today, count: newCount }));
+  localStorage.setItem(
+    "pv-streak",
+    JSON.stringify({ lastDate: today, count: newCount }),
+  );
   return newCount;
 }
 
 function App() {
+  const { user, logout } = useAuth();
   const [threads, setThreads] = useState([]);
   const [currThreadId, setCurrThreadId] = useState(null);
   const [prompt, setPrompt] = useState("");
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [theme, setTheme] = useState(() => localStorage.getItem("pv-theme") || "dark");
+  const [isCollapsed, setIsCollapsed] = useState(
+    () => localStorage.getItem("pv-collapsed") === "true",
+  );
   const [streak, setStreak] = useState(0);
   const abortRef = useRef(null);
 
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("pv-theme", theme);
-  }, [theme]);
+  const toggleCollapse = () => {
+    setIsCollapsed((prev) => {
+      localStorage.setItem("pv-collapsed", String(!prev));
+      return !prev;
+    });
+  };
 
   useEffect(() => {
     setStreak(calculateStreak());
   }, []);
 
-  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
-
   const getAllThreads = async () => {
     try {
-      const res = await fetch(`${API_BASE}/api/thread`);
+      const res = await fetch(`${API_BASE}/api/thread`, {
+        credentials: "include",
+      });
       const data = await res.json();
       setThreads(data);
     } catch (err) {
@@ -69,7 +80,9 @@ function App() {
   const selectThread = async (threadId) => {
     setCurrThreadId(threadId);
     try {
-      const res = await fetch(`${API_BASE}/api/thread/${threadId}`);
+      const res = await fetch(`${API_BASE}/api/thread/${threadId}`, {
+        credentials: "include",
+      });
       const data = await res.json();
       setMessages(data);
     } catch (err) {
@@ -79,7 +92,10 @@ function App() {
 
   const deleteThread = async (threadId) => {
     try {
-      await fetch(`${API_BASE}/api/thread/${threadId}`, { method: "DELETE" });
+      await fetch(`${API_BASE}/api/thread/${threadId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
       setThreads((prev) => prev.filter((t) => t.threadId !== threadId));
       if (threadId === currThreadId) {
         newChat();
@@ -91,11 +107,14 @@ function App() {
 
   const renameThread = async (threadId, title) => {
     // update on screen right away, don't make the user wait on the request
-    setThreads((prev) => prev.map((t) => (t.threadId === threadId ? { ...t, title } : t)));
+    setThreads((prev) =>
+      prev.map((t) => (t.threadId === threadId ? { ...t, title } : t)),
+    );
     try {
       await fetch(`${API_BASE}/api/thread/${threadId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ title }),
       });
     } catch (err) {
@@ -121,21 +140,31 @@ function App() {
       const res = await fetch(`${API_BASE}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ threadId, message: messageToSend }),
         signal: controller.signal,
       });
       const data = await res.json();
 
-      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: data.reply },
+      ]);
       await getAllThreads();
     } catch (err) {
       if (err.name === "AbortError") {
-        setMessages((prev) => [...prev, { role: "assistant", content: "Stopped." }]);
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: "Stopped." },
+        ]);
       } else {
         console.log("failed to send message", err);
         setMessages((prev) => [
           ...prev,
-          { role: "assistant", content: "Something went wrong. Please try again." },
+          {
+            role: "assistant",
+            content: "Something went wrong. Please try again.",
+          },
         ]);
       }
     } finally {
@@ -183,15 +212,16 @@ function App() {
     regenerateLast,
     isSidebarOpen,
     setIsSidebarOpen,
-    theme,
-    toggleTheme,
+    isCollapsed,
+    toggleCollapse,
     streak,
+    user,
+    logout,
   };
 
   return (
     <div className="app">
       <Mycontext.Provider value={providerValues}>
-        <Toast message="Welcome to Prompt Verse! We're just one prompt away." />
         <Sidebar></Sidebar>
         <ChatWindow></ChatWindow>
       </Mycontext.Provider>

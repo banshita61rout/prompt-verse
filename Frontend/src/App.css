@@ -7,7 +7,7 @@ body{
     padding:0;
 }
 .app{
-    background-color: var(--bg-deep);
+    background-color: var(--bg-page);
     display:flex;
     height: 100vh;
     overflow: hidden;

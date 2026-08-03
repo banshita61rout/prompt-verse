@@ -1,37 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap');
 
-/* dark is the default, light overrides these when data-theme="light" is set on <html> */
-:root,
-[data-theme="dark"]{
-  --bg-deep: #171410;
-  --bg-sidebar: #1c1812;
-  --surface: #262019;
-  --surface-hover: #33291d80;
-  --border: #3a2f22;
-  --text-primary: #f2ece1;
-  --text-muted: #a89a86;
-  --accent-primary: #f5b400;
-  --accent-secondary: #e0542c;
-  --accent-gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  --danger: #ff6b5e;
-  --radius-md: 10px;
+:root{
+  --bg-page: #171717;
+  --bg-sidebar: #202020;
+  --surface: #262626;
+  --surface-hover: #313131;
+  --border: #3a3a3a;
+  --text-primary: #f2f2f2;
+  --text-muted: #9a9a9a;
+  --accent-red: #2563eb;
+  --accent-red-hover: #1d4ed8;
+  --accent-red-dark: #1e40af;
+  --accent-gradient: var(--accent-red);
+  --danger: #dc2626;
   --font-display: "Space Grotesk", sans-serif;
   --font-body: "Inter", sans-serif;
-  /* clipped-corner shape used everywhere for the angular look */
-  --cut: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-}
-
-[data-theme="light"]{
-  --bg-deep: #faf6ee;
-  --bg-sidebar: #f2e9d8;
-  --surface: #ffffff;
-  --surface-hover: #f0e6d2;
-  --border: #e3d5b8;
-  --text-primary: #2b2416;
-  --text-muted: #7a6f5c;
-  --accent-primary: #d99400;
-  --accent-secondary: #c8461f;
-  --danger: #d9432f;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
 }
 
 *{
@@ -41,10 +27,9 @@
 }
 
 body{
-  background-color: var(--bg-deep);
+  background-color: var(--bg-page);
   color: var(--text-primary);
   font-family: var(--font-body);
-  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 button{

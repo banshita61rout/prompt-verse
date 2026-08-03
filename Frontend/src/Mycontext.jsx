@@ -16,7 +16,9 @@ export const Mycontext = createContext({
   stopGenerating: () => {},
   editLastMessage: () => {},
   regenerateLast: () => {},
-  theme: "dark",
-  toggleTheme: () => {},
   streak: 0,
+  user: null,
+  logout: () => {},
+  isCollapsed: false,
+  toggleCollapse: () => {},
 });
